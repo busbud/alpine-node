@@ -62,4 +62,4 @@ RUN apk add --no-cache ${BUILD_DEPS} ${RUNTIME_DEPS} && \
     npm install -g "npm@${NPM_VERSION}" && \
     apk del linux-headers paxctl && \
     find /usr/lib/node_modules/npm -name test -type d | xargs rm -rf && \
-    rm -rf "/node-v${NODE_VERSION}" /usr/lib/node_modules/npm/man /usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html /root/.npm /root/.node-gyp /tmp/* /var/tmp/* /var/cache/apk/* /usr/include /usr/share/
+    rm -rf "/node-v${NODE_VERSION}" /usr/lib/node_modules/npm/man /usr/lib/node_modules/npm/doc /usr/lib/node_modules/npm/html /root/.npm /root/.node-gyp /tmp/* /var/tmp/* /var/cache/apk/* /usr/share/
