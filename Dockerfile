@@ -28,7 +28,7 @@ ARG NPM_VERSION=3
 #                       execution capabilities to Node.js binary
 #                       (required to run).
 #
-ARG BUILD_DEPS='curl build-base python linux-headers paxctl'
+ARG BUILD_DEPS='curl make gcc g++ binutils-gold python linux-headers paxctl'
 
 #
 # Runtime dependencies for Node.js, should not be removed after build.
