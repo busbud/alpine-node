@@ -23,13 +23,13 @@ that require compilation without extra steps.
 ## Usage
 
 ```sh
-docker build -t alpine-node:dev --rm .
+docker build -t alpine-node --rm .
 ```
 
 You can configure the `NODE_VERSION` and `NPM_VERSION` build arguments:
 
 ```sh
-docker build -t alpine-node:dev --rm . \
+docker build -t alpine-node --rm . \
     --build-arg NODE_VERSION=4.2.6 \
     --build-arg NPM_VERSION=3
 ```
