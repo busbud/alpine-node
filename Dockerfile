@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.4
 
 #
 # Inspired by:
@@ -9,7 +9,7 @@ FROM alpine:3.3
 #
 
 # The Node.js version to be installed (without the `v` prefix).
-ARG NODE_VERSION=4.2.6
+ARG NODE_VERSION=6.9.1
 
 # The npm version to be installed.
 ARG NPM_VERSION=3
@@ -52,6 +52,8 @@ ARG RUNTIME_DEPS='libgcc libstdc++'
 # See <https://github.com/mhart/alpine-node/issues/5> for why, and
 # eventually paxctl man page <http://man.he.net/man1/paxctl>.
 #
+# Apply a fix for <https://github.com/npm/npm/issues/9863>.
+#
 RUN apk add --no-cache ${BUILD_DEPS} ${RUNTIME_DEPS} && \
     curl -s "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}.tar.xz" | tar xJ && \
     cd "/node-v${NODE_VERSION}" && \
@@ -59,6 +61,9 @@ RUN apk add --no-cache ${BUILD_DEPS} ${RUNTIME_DEPS} && \
     make && \
     make install && \
     paxctl -cm /usr/bin/node && \
+    cd "$(npm root -g)/npm" && \
+    npm install fs-extra && \
+    sed -i -e 's/graceful-fs/fs-extra/' -e 's/fs\.rename/fs.move/' lib/utils/rename.js && \
     npm install -g "npm@${NPM_VERSION}" && \
     apk del linux-headers paxctl && \
     find /usr/lib/node_modules/npm -name test -type d | xargs rm -rf && \
